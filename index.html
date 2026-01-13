@@ -816,14 +816,15 @@ Join a goal-based WhatsApp saving group, receive daily saving guidance, learn ab
 
     <!-- Final CTA -->
     <section class="final-cta" id="join">
-        <div class="container">
-            <div class="final-cta-box">
+    <div class="container">
+        <div class="final-cta-box">
+            <!-- Original CTA Content (shown by default) -->
+            <div class="cta-content" id="ctaContent">
                 <h2>Ready to Build Your Savings Habit?</h2>
-                <p style="margin-bottom: 32px;">Join 29 other Kenyans serious about saving consistently. No hype, no
-                    financial advice—just accountability and results.</p>
+                <p style="margin-bottom: 32px;">Join 29 other Kenyans serious about saving consistently. No hype, no financial advice—just accountability and results.</p>
 
                 <div style="margin-bottom: 24px;">
-                    <a href="#" class="btn btn-primary">
+                    <a href="#" class="btn btn-primary" id="joinCtaButton">
                         <i class="fas fa-user-plus"></i>
                         Join the Next Cohort – KSh 100
                     </a>
@@ -833,8 +834,209 @@ Join a goal-based WhatsApp saving group, receive daily saving guidance, learn ab
                     <i class="fas fa-shield-alt"></i> Secure M-PESA payment • WhatsApp cohort access • 90-day program
                 </p>
             </div>
+
+            <!-- STK Push Form (hidden by default) -->
+            <div class="stk-form-container" id="stkFormContainer" style="display: none;">
+                <div class="form-header" style="display: flex; align-items: center; gap: 10px; margin-bottom: 24px;">
+                    <button class="back-button" id="backButton" style="background: none; border: none; color: var(--primary); font-size: 1.2rem; cursor: pointer;">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2 style="margin: 0;">Join SaveStreak Cohort</h2>
+                </div>
+
+                <p style="color: var(--neutral-600); margin-bottom: 24px;">
+                    Enter your details to receive an M-PESA STK Push for KSh 100. After payment, you'll receive WhatsApp access within 5 minutes.
+                </p>
+
+                <form id="stkForm">
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="userName" style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--neutral-700);">
+                            <i class="fas fa-user"></i> Full Name
+                        </label>
+                        <input type="text" id="userName" required 
+                               placeholder="Enter your full name" 
+                               style="width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: var(--border-radius); font-size: 1rem; transition: var(--transition);"
+                               onfocus="this.style.borderColor='var(--primary)'; this.style.outline='none'"
+                               onblur="this.style.borderColor='#ddd'">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="userEmail" style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--neutral-700);">
+                            <i class="fas fa-envelope"></i> Email Address
+                        </label>
+                        <input type="email" id="userEmail" required 
+                               placeholder="example@gmail.com" 
+                               style="width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: var(--border-radius); font-size: 1rem; transition: var(--transition);"
+                               onfocus="this.style.borderColor='var(--primary)'; this.style.outline='none'"
+                               onblur="this.style.borderColor='#ddd'">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 32px;">
+                        <label for="userPhone" style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--neutral-700);">
+                            <i class="fas fa-phone-alt"></i> M-PESA Phone Number
+                        </label>
+                        <input type="tel" id="userPhone" required 
+                               placeholder="07XX XXX XXX" 
+                               style="width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: var(--border-radius); font-size: 1rem; transition: var(--transition);"
+                               onfocus="this.style.borderColor='var(--primary)'; this.style.outline='none'"
+                               onblur="this.style.borderColor='#ddd'">
+                        <p style="font-size: 0.85rem; color: var(--neutral-500); margin-top: 8px;">
+                            Ensure this is the number registered with M-PESA
+                        </p>
+                    </div>
+
+                    <div style="margin-bottom: 16px;">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-lock"></i>
+                            Request M-PESA STK Push – KSh 100
+                        </button>
+                    </div>
+
+                    <div style="background: #f8f9fa; padding: 16px; border-radius: var(--border-radius); margin-bottom: 24px;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                            <i class="fas fa-info-circle" style="color: var(--primary);"></i>
+                            <h4 style="margin: 0; font-size: 1rem;">What happens next?</h4>
+                        </div>
+                        <ul style="margin: 0; padding-left: 20px; color: var(--neutral-600); font-size: 0.9rem;">
+                            <li>You'll receive an M-PESA prompt on your phone</li>
+                            <li>Enter your M-PESA PIN to complete payment</li>
+                            <li>Within 5 minutes, you'll get WhatsApp access details</li>
+                            <li>Cohort starts on the next scheduled date</li>
+                        </ul>
+                    </div>
+                </form>
+
+                <div style="text-align: center; color: var(--neutral-500); font-size: 0.9rem; padding-top: 16px; border-top: 1px solid #eee;">
+                    <i class="fas fa-shield-alt"></i> Your information is secure and will not be shared with third parties
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctaContent = document.getElementById('ctaContent');
+        const stkFormContainer = document.getElementById('stkFormContainer');
+        const joinCtaButton = document.getElementById('joinCtaButton');
+        const backButton = document.getElementById('backButton');
+        const stkForm = document.getElementById('stkForm');
+
+        // Show form when CTA button is clicked
+        joinCtaButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            ctaContent.style.display = 'none';
+            stkFormContainer.style.display = 'block';
+            
+            // Smooth scroll to ensure form is visible
+            document.querySelector('#join').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+
+        // Go back to CTA when back button is clicked
+        backButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            stkFormContainer.style.display = 'none';
+            ctaContent.style.display = 'block';
+        });
+
+        // Handle form submission
+        stkForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const userName = document.getElementById('userName').value;
+            const userEmail = document.getElementById('userEmail').value;
+            const userPhone = document.getElementById('userPhone').value;
+
+            // Validate Kenyan phone number format
+            const phoneRegex = /^0[17]\d{8}$/;
+            if (!phoneRegex.test(userPhone.replace(/\s/g, ''))) {
+                alert('Please enter a valid Kenyan phone number (e.g., 0712 345 678)');
+                return;
+            }
+
+            // In a real implementation, you would:
+            // 1. Send data to your backend
+            // 2. Trigger M-PESA STK push via Daraja API
+            // 3. Show loading state
+            
+            // For demo purposes, simulate STK push
+            simulateSTKPush(userName, userPhone);
+        });
+
+        // Function to simulate M-PESA STK Push
+        function simulateSTKPush(name, phone) {
+            // Show loading state
+            const submitButton = stkForm.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            submitButton.disabled = true;
+
+            // Simulate API call delay
+            setTimeout(() => {
+                // In reality, this would be handled by your backend
+                // For now, show success message
+                stkFormContainer.innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="width: 80px; height: 80px; background: #34a853; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 2rem;">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h3>Payment Request Sent!</h3>
+                        <p style="color: var(--neutral-600); margin-bottom: 32px;">
+                            We've sent an M-PESA STK Push to <strong>${phone}</strong>. 
+                            Check your phone and enter your PIN to complete payment.
+                        </p>
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: var(--border-radius); margin-bottom: 24px;">
+                            <h4 style="margin-bottom: 12px;"><i class="fas fa-mobile-alt"></i> Next Steps:</h4>
+                            <ol style="text-align: left; margin: 0; padding-left: 20px; color: var(--neutral-600);">
+                                <li>Check your phone for the M-PESA prompt</li>
+                                <li>Enter your M-PESA PIN to authorize payment</li>
+                                <li>You'll receive a confirmation SMS from M-PESA</li>
+                                <li>We'll send WhatsApp group details within 5 minutes</li>
+                            </ol>
+                        </div>
+                        <div style="margin-top: 24px;">
+                            <button id="closeModal" class="btn btn-primary" style="width: 100%;">
+                                <i class="fas fa-check-circle"></i>
+                                Got it, I'll check my phone
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                // Add event listener to new close button
+                document.getElementById('closeModal').addEventListener('click', function() {
+                    // Reset to original CTA
+                    location.reload(); // Or implement a smoother reset
+                });
+
+                // In reality, you would:
+                // 1. Poll your backend for payment confirmation
+                // 2. Send WhatsApp message via Twilio/WhatsApp Business API
+                // 3. Update user status in your database
+                
+            }, 1500);
+        }
+
+        // Format phone number as user types (optional enhancement)
+        const phoneInput = document.getElementById('userPhone');
+        phoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.startsWith('0') && value.length <= 10) {
+                // Format: 07XX XXX XXX
+                if (value.length > 3) {
+                    value = value.replace(/(\d{4})(\d{0,3})(\d{0,4})/, '$1 $2 $3').trim();
+                }
+                e.target.value = value;
+            }
+        });
+    });
+</script>
 
     <!-- Footer -->
     <footer class="footer">
